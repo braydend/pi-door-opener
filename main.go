@@ -1,7 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"braydend/pi-door-opener/web"
+	"log"
+	"net/http"
+)
 
 func main() {
-	fmt.Println("Hello world")
+	web.RegisterRoutes()
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
