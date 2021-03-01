@@ -1,0 +1,25 @@
+html,
+body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  font-size: 16pt;
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2rem;
+}
+
+#toggleButton {
+  padding: 2rem;
+  border-radius: 6px;
+  font-size: 2rem;
+}
