@@ -6,9 +6,9 @@ const HOUR = 60 * MINUTE;
 // Function to handle fetching status
 const fetchStatus = async () => {
   const resp = await fetch("/status");
-  const data = await resp.text();
+  const data = await resp.json();
 
-  return data;
+  return data.IsOpen ? "Open" : "Closed";
 };
 
 // Update status in DOM
