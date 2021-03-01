@@ -1,7 +1,7 @@
 package gpio
 
 import (
-	"fmt"
+	"log"
 
 	"github.com/stianeikeland/go-rpio/v4"
 )
@@ -14,7 +14,7 @@ type PinConfig struct {
 
 // InitialiseGPIO - Set up GPIO
 func InitialiseGPIO(config []PinConfig) {
-	fmt.Println("Attempting to initialise GPIO")
+	log.Println("Attempting to initialise GPIO")
 	err := rpio.Open()
 
 	if err != nil {
@@ -35,13 +35,13 @@ func configureGPIO(config []PinConfig) {
 			mode = "Output"
 			pin.Output()
 		}
-		fmt.Printf("Setting pin %d to %s.\n", pinConfig.Number, mode)
+		log.Printf("Setting pin %d to %s.\n", pinConfig.Number, mode)
 	}
 }
 
 //CloseGPIO - Unmap GPIO
 func CloseGPIO() {
-	fmt.Println("Attempting to clean up GPIO")
+	log.Println("Attempting to clean up GPIO")
 	err := rpio.Close()
 
 	if err != nil {
