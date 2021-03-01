@@ -8,8 +8,20 @@ import (
 
 // RegisterRoutes - Register the HTTP endpoints that will be available
 func RegisterRoutes() {
+	handleAssets()
+	handleIndex()
 	handleToggleDoor()
 	handleGetState()
+}
+
+func handleAssets() {
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+}
+
+func handleIndex() {
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./public/index.html")
+	})
 }
 
 func handleToggleDoor() {
