@@ -21,6 +21,12 @@ func handleToggleDoor() {
 
 func handleGetState() {
 	http.HandleFunc("/status", func(w http.ResponseWriter, t *http.Request) {
-		fmt.Fprintf(w, "I am the current state")
+		var state string
+		if gpio.ReadPin(gpio.SensorPin) {
+			state = "Open"
+		} else {
+			state = "Closed"
+		}
+		fmt.Fprintf(w, "Door is currently %s", state)
 	})
 }

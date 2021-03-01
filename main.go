@@ -10,7 +10,7 @@ import (
 func main() {
 	pins := []gpio.PinConfig{
 		{
-			Number:  1,
+			Number:  gpio.SensorPin,
 			IsInput: true,
 		},
 		{

@@ -9,6 +9,9 @@ import (
 // RelayPin - Pin for GPIO output controlling relay
 const RelayPin = 2
 
+// SensorPin - Pin for GPIO input reading magnet switch
+const SensorPin = 3
+
 // PinConfig - Map a GPIO pin with an input/output mode
 type PinConfig struct {
 	Number  uint
@@ -57,4 +60,14 @@ func TogglePin(pinNumber uint) {
 	pin := rpio.Pin(pinNumber)
 
 	pin.Toggle()
+}
+
+// ReadPin - Read state of specified pin
+func ReadPin(pinNumber uint) bool {
+	pin := rpio.Pin(pinNumber)
+
+	if pin.Read() == rpio.High {
+		return true
+	}
+	return false
 }
