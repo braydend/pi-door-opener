@@ -10,11 +10,11 @@ import (
 func main() {
 	pins := []gpio.PinConfig{
 		{
-			Number:  1,
+			Number:  gpio.SensorPin,
 			IsInput: true,
 		},
 		{
-			Number:  gpio.RELAY_PIN,
+			Number:  gpio.RelayPin,
 			IsInput: false,
 		},
 	}
