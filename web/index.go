@@ -2,6 +2,7 @@ package web
 
 import (
 	"braydend/pi-door-opener/gpio"
+	"encoding/json"
 	"fmt"
 	"net/http"
 )
@@ -32,13 +33,19 @@ func handleToggleDoor() {
 }
 
 func handleGetState() {
+	type stateResponse struct {
+		IsOpen bool
+	}
+
 	http.HandleFunc("/status", func(w http.ResponseWriter, t *http.Request) {
-		var state string
+		var jsonResponse stateResponse
 		if gpio.ReadPin(gpio.SensorPin) {
-			state = "Open"
+			jsonResponse = stateResponse{IsOpen: true}
 		} else {
-			state = "Closed"
+			jsonResponse = stateResponse{IsOpen: false}
 		}
-		fmt.Fprintf(w, "Door is currently %s", state)
+
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(jsonResponse)
 	})
 }
