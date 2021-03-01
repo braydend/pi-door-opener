@@ -3,6 +3,7 @@ package gpio
 import (
 	"log"
 
+	"github.com/getsentry/sentry-go"
 	"github.com/stianeikeland/go-rpio/v4"
 )
 
@@ -24,6 +25,7 @@ func InitialiseGPIO(config []PinConfig) {
 	err := rpio.Open()
 
 	if err != nil {
+		sentry.CaptureException(err)
 		panic(err)
 	}
 
@@ -51,6 +53,7 @@ func CloseGPIO() {
 	err := rpio.Close()
 
 	if err != nil {
+		sentry.CaptureException(err)
 		panic(err)
 	}
 }
