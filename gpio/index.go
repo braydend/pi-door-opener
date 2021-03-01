@@ -6,6 +6,9 @@ import (
 	"github.com/stianeikeland/go-rpio/v4"
 )
 
+// RELAY_PIN - Pin for GPIO output controlling relay
+const RELAY_PIN = 2
+
 // PinConfig - Map a GPIO pin with an input/output mode
 type PinConfig struct {
 	Number  uint

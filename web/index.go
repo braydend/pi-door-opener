@@ -15,7 +15,7 @@ func RegisterRoutes() {
 func handleToggleDoor() {
 	http.HandleFunc("/toggle", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Toggling door state")
-		gpio.TogglePin(2)
+		gpio.TogglePin(gpio.RELAY_PIN)
 	})
 }
 

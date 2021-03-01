@@ -14,7 +14,7 @@ func main() {
 			IsInput: true,
 		},
 		{
-			Number:  2,
+			Number:  gpio.RELAY_PIN,
 			IsInput: false,
 		},
 	}
