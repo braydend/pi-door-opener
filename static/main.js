@@ -3,6 +3,14 @@ const SECOND = 1000;
 const MINUTE = 60 * SECOND;
 const HOUR = 60 * MINUTE;
 
+// Configure Sentry
+Sentry.init({
+  dsn:
+    "https://ca703ac80a0b41ce80a6f5189af6f4d0@o538041.ingest.sentry.io/5655995",
+  maxBreadcrumbs: 50,
+  debug: true,
+});
+
 // Function to handle fetching status
 const fetchStatus = async () => {
   const resp = await fetch("/status");
