@@ -6,7 +6,7 @@ const HOUR = 60 * MINUTE;
 // Configure Sentry
 Sentry.init({
   dsn:
-    "https://ca703ac80a0b41ce80a6f5189af6f4d0@o538041.ingest.sentry.io/5655995",
+    "https://dcb228402ca04737a8efc0ef1486eb3d@o538041.ingest.sentry.io/5656062",
   maxBreadcrumbs: 50,
   debug: true,
 });
