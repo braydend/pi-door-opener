@@ -48,3 +48,10 @@ func CloseGPIO() {
 		panic(err)
 	}
 }
+
+// TogglePin - Toggle specified pin Low->High->Low
+func TogglePin(pinNumber uint) {
+	pin := rpio.Pin(pinNumber)
+
+	pin.Toggle()
+}

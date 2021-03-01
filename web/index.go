@@ -1,6 +1,7 @@
 package web
 
 import (
+	"braydend/pi-door-opener/gpio"
 	"fmt"
 	"net/http"
 )
@@ -14,6 +15,7 @@ func RegisterRoutes() {
 func handleToggleDoor() {
 	http.HandleFunc("/toggle", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Toggling door state")
+		gpio.TogglePin(2)
 	})
 }
 
