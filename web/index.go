@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"time"
 
 	sentryhttp "github.com/getsentry/sentry-go/http"
 )
@@ -36,7 +37,9 @@ func handleToggleDoor() {
 
 	http.HandleFunc("/toggle", sentryHandler.HandleFunc(func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Toggling door state")
-		gpio.TogglePin(gpio.RelayPin)
+		gpio.SetPin(gpio.RelayPin, false)
+		time.Sleep(5 * time.Second)
+		gpio.SetPin(gpio.RelayPin, true)
 	}))
 }
 

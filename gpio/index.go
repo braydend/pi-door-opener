@@ -58,6 +58,17 @@ func CloseGPIO() {
 	}
 }
 
+// SetPin - Set a pin to a specific high/low value
+func SetPin(pinNumber uint, high bool) {
+	pin := rpio.Pin(pinNumber)
+
+	if high {
+		pin.High()
+	} else {
+		pin.Low()
+	}
+}
+
 // TogglePin - Toggle specified pin Low->High->Low
 func TogglePin(pinNumber uint) {
 	pin := rpio.Pin(pinNumber)
