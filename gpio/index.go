@@ -52,9 +52,21 @@ func CloseGPIO() {
 	log.Println("Attempting to clean up GPIO")
 	err := rpio.Close()
 
+	SetPin(RelayPin, true)
 	if err != nil {
 		sentry.CaptureException(err)
 		panic(err)
+	}
+}
+
+// SetPin - Set a pin to a specific high/low value
+func SetPin(pinNumber uint, high bool) {
+	pin := rpio.Pin(pinNumber)
+
+	if high {
+		pin.High()
+	} else {
+		pin.Low()
 	}
 }
 
