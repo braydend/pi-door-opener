@@ -50,9 +50,9 @@ func handleGetState() {
 	http.HandleFunc("/status", sentryHandler.HandleFunc(func(w http.ResponseWriter, t *http.Request) {
 		var jsonResponse stateResponse
 		if gpio.ReadPin(gpio.SensorPin) {
-			jsonResponse = stateResponse{IsOpen: true}
-		} else {
 			jsonResponse = stateResponse{IsOpen: false}
+		} else {
+			jsonResponse = stateResponse{IsOpen: true}
 		}
 
 		w.Header().Set("Content-Type", "application/json")
