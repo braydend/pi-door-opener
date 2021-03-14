@@ -52,6 +52,7 @@ func CloseGPIO() {
 	log.Println("Attempting to clean up GPIO")
 	err := rpio.Close()
 
+	SetPin(RelayPin, true)
 	if err != nil {
 		sentry.CaptureException(err)
 		panic(err)
