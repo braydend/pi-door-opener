@@ -3,11 +3,13 @@ package main
 import (
 	"braydend/pi-door-opener/gpio"
 	"braydend/pi-door-opener/web"
+	"os"
 	"log"
 	"net/http"
 	"time"
 
 	"github.com/getsentry/sentry-go"
+	"github.com/joho/godotenv"
 )
 
 func main() {
@@ -22,9 +24,15 @@ func main() {
 		},
 	}
 
-	err := sentry.Init(sentry.ClientOptions{
+	err := godotenv.Load(".env")
+
+	if err != nil {
+        log.Fatal("Error loading .env file")
+    }
+
+	err = sentry.Init(sentry.ClientOptions{
 		Dsn:              "https://ca703ac80a0b41ce80a6f5189af6f4d0@o538041.ingest.sentry.io/5655995",
-		Environment:      "dev",
+		Environment:      os.Getenv("ENV"),
 		AttachStacktrace: true,
 	})
 
