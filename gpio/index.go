@@ -2,6 +2,7 @@ package gpio
 
 import (
 	"log"
+	"os"
 
 	"github.com/getsentry/sentry-go"
 	"github.com/stianeikeland/go-rpio/v4"
@@ -80,9 +81,10 @@ func TogglePin(pinNumber uint) {
 // ReadPin - Read state of specified pin
 func ReadPin(pinNumber uint) bool {
 	pin := rpio.Pin(pinNumber)
+	state:= pin.Read() == rpio.High
 
-	if pin.Read() == rpio.High {
-		return true
+	if (os.Getenv("INVERT_DOOR_SENSOR") == "true") {
+		return !state
 	}
-	return false
+	return state
 }
