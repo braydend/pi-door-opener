@@ -1,0 +1,14 @@
+[Unit]
+Description=Garage door control
+After=network-online.target
+
+[Service]
+ExecStart=/usr/local/go/bin/go run /home/pi/git/pi-door-opener/main.go
+WorkingDirectory=/home/pi/git/pi-door-opener
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=pi
+
+[Install]
+WantedBy=multi-user.target
