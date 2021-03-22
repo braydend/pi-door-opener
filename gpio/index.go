@@ -43,6 +43,9 @@ func configureGPIO(config []PinConfig) {
 		} else {
 			mode = "Output"
 			pin.Output()
+			if (os.Getenv("INITIALISE_HIGH") == "true") {
+				pin.High()
+			}
 		}
 		log.Printf("Setting pin %d to %s.\n", pinConfig.Number, mode)
 	}
