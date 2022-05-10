@@ -3,14 +3,29 @@ package main
 import (
 	"braydend/pi-door-opener/gpio"
 	"braydend/pi-door-opener/web"
-	"os"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/getsentry/sentry-go"
 	"github.com/joho/godotenv"
 )
+
+func configureLogger() {
+	logFile, err := os.OpenFile("log.txt", os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0666)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	log.SetOutput(logFile)
+	log.SetFlags(log.LstdFlags | log.Lshortfile)
+}
+
+func init() {
+	configureLogger()
+}
 
 func main() {
 	pins := []gpio.PinConfig{
