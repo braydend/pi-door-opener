@@ -42,8 +42,8 @@ func main() {
 	err := godotenv.Load(".env")
 
 	if err != nil {
-        log.Fatal("Error loading .env file")
-    }
+		log.Fatal(err)
+	}
 
 	err = sentry.Init(sentry.ClientOptions{
 		Dsn:              "https://ca703ac80a0b41ce80a6f5189af6f4d0@o538041.ingest.sentry.io/5655995",
@@ -52,7 +52,7 @@ func main() {
 	})
 
 	if err != nil {
-		log.Fatalf("sentry.Init: %s", err)
+		log.Fatal(err)
 	}
 
 	// Flush buffered events before the program terminates.

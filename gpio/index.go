@@ -27,7 +27,7 @@ func InitialiseGPIO(config []PinConfig) {
 
 	if err != nil {
 		sentry.CaptureException(err)
-		panic(err)
+		log.Panic(err)
 	}
 
 	configureGPIO(config)
@@ -59,7 +59,7 @@ func CloseGPIO() {
 	SetPin(RelayPin, true)
 	if err != nil {
 		sentry.CaptureException(err)
-		panic(err)
+		log.Panic(err)
 	}
 }
 
@@ -68,8 +68,12 @@ func SetPin(pinNumber uint, high bool) {
 	pin := rpio.Pin(pinNumber)
 
 	if high {
+		log.Printf("Setting pin %d to high\n", pinNumber)
+
 		pin.High()
 	} else {
+		log.Printf("Setting pin %d to low\n", pinNumber)
+
 		pin.Low()
 	}
 }
@@ -77,6 +81,7 @@ func SetPin(pinNumber uint, high bool) {
 // TogglePin - Toggle specified pin Low->High->Low
 func TogglePin(pinNumber uint) {
 	pin := rpio.Pin(pinNumber)
+	log.Printf("Toggling pin %d\n", pinNumber)
 
 	pin.Toggle()
 }
@@ -84,10 +89,12 @@ func TogglePin(pinNumber uint) {
 // ReadPin - Read state of specified pin
 func ReadPin(pinNumber uint) bool {
 	pin := rpio.Pin(pinNumber)
-	state:= pin.Read() == rpio.High
+	state := pin.Read()
+	isHigh := state == rpio.High
+	log.Printf("Pin %d read as %d\n", pinNumber, state)
 
-	if (os.Getenv("INVERT_DOOR_SENSOR") == "true") {
-		return !state
+	if os.Getenv("INVERT_DOOR_SENSOR") == "true" {
+		return !isHigh
 	}
-	return state
+	return isHigh
 }
