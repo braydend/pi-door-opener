@@ -47,6 +47,7 @@ func handleToggleDoor() {
 	sentryHandler := sentryhttp.New(sentryhttp.Options{})
 
 	http.HandleFunc(route, sentryHandler.HandleFunc(func(w http.ResponseWriter, r *http.Request) {
+		log.Printf("Toggling door state. Request from: %s", r.Host)
 		fmt.Fprintf(w, "Toggling door state")
 		gpio.SetPin(gpio.RelayPin, false)
 		time.Sleep(5 * time.Second)
@@ -63,13 +64,14 @@ func handleGetState() {
 		IsOpen bool
 	}
 
-	http.HandleFunc(route, sentryHandler.HandleFunc(func(w http.ResponseWriter, t *http.Request) {
+	http.HandleFunc(route, sentryHandler.HandleFunc(func(w http.ResponseWriter, r *http.Request) {
 		var jsonResponse stateResponse
 		if gpio.ReadPin(gpio.SensorPin) {
 			jsonResponse = stateResponse{IsOpen: false}
 		} else {
 			jsonResponse = stateResponse{IsOpen: true}
 		}
+		log.Printf("Reading door state(%v). Request from: %s", jsonResponse, r.Host)
 
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(jsonResponse)
